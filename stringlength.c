@@ -1,5 +1,4 @@
 #include "shell.h"
-
 /**
  * stringlen - length of a string
  * @s: string
@@ -7,13 +6,11 @@
  */
 int stringlen(char *s)
 {
-    int length;
+int length;
+for (length = 0; s[length] != '\0'; length++)
+{
 
-    for (length = 0; s[length] != '\0'; length++)
-    {
-
-    }
-
-    return length;
+}
+return (length);
 }
 

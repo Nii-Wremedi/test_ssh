@@ -8,7 +8,7 @@
  */
 char *_strconcat(char *char_ptr1, char *char_ptr2)
 {
-    strcpy(char_ptr1 + strlen(char_ptr1), char_ptr2);
-    return char_ptr1;
+strcpy(char_ptr1 + strlen(char_ptr1), char_ptr2);
+return (char_ptr1);
 }
 

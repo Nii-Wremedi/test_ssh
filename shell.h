@@ -20,7 +20,7 @@ void _prompter(char **argv, char **envp, bool flag);
 int _stringcmp(char *st0, char *st1);
 char *_strconcat(char *char_ptr1, char *char_ptr2);
 char *path_handler(char **rgv, char *cmad);
-char *stringcpy(char *char_ptr1,const char *char_ptr2);
+char *stringcpy(char *char_ptr1, const char *char_ptr2);
 int stringlen(char *s);
 void exit_handler(char *cmad);
 void runcommand(char **rgv, char **argv, char **envp);

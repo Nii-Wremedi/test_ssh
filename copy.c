@@ -7,11 +7,9 @@
  */
 char *stringcpy(char *char_ptr1, const char *char_ptr2)
 {
-    char *dest = char_ptr1; /*Save the start of the destination string*/
-
-    while ((*char_ptr1++ = *char_ptr2++)) /*Copy characters until null terminator*/
-        ;
-
-    return dest; /*Return the start of the destination string*/
+char *dest = char_ptr1; /*Save the start of the destination string*/
+while ((*char_ptr1++ = *char_ptr2++))/*Copy char until null terminator*/
+	;
+return (dest); /*Return the start of the destination string*/
 }
 
