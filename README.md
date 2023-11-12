@@ -12,12 +12,13 @@ This project is a simple implementation of a Unix shell in C. The shell supports
 - [Usage](#usage)
 - [Features](#features)
 - [File Structure](#file-structure)
-
 ## Installation:
 
 To run this shell on your local machine, follow these steps:
 
 ```bash
+git clone https://github.com/your-username/simple-shell.git
+cd simple-shell
 gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
 ```
 
@@ -57,4 +58,17 @@ Once in the shell, you can enter commands as you would in a regular shell.
   - `tokenize_env`: Function to tokenize the PATH environment variable.
   - `_strncmp`: String comparison up to a specified number of characters.
   - `error_handler`: Function to handle errors.
+
+- `md.c`: Main file with the implementation of the shell functionality.
+
+- `error.c`: File containing error handling functions.
+
+- `stringcopy.c`: File with string manipulation functions.
+
+- `trim.c`: File with space trimming function.
+
+- `...` (other files): Additional files with various functions for the shell.
+
+---
+
 
