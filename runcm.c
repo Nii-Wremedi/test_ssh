@@ -1,39 +1,40 @@
 #include "shell.h"
+
 /**
- * runcommand - a function that run command
- * @rgv: rgv argument
- * @arv: argv argument
- * @envp: envp argument
+ * runcommand - Run a command in a child process and wait for it to complete.
+ * @rgv: Argument vector for the command.
+ * @argv: Program name (for error reporting).
+ * @envp: Environment variables.
  */
 void runcommand(char **rgv, char **argv, char **envp)
 {
-	pid_t mychild;
-	int stat;
-	/*denum *c = malloc(sizeof(struct denum));*/
+    pid_t child_pid;
+    int status;
 
-	mychild = fork();
+    child_pid = fork();
 
-	if (mychild == -1)
-	{
-		perror("Process Error");
-		exit(EXIT_FAILURE);
-	}
-	if (mychild == 0)
-	{
+    if (child_pid == -1)
+    {
+        perror("Fork Error");
+        exit(EXIT_FAILURE);
+    }
 
-		if (execve(rgv[0], rgv, envp) == (-1))
-		{
-			write(STDOUT_FILENO, argv[0], stringlen(argv[0]));
-			write(STDOUT_FILENO, ": No such file or directory",
-			stringlen(": No such file or directory"));
-			write(STDOUT_FILENO, "\n", 1);
-			/*geterror(c -> cnt, argv, cmd);*/
-		}
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		wait(&stat);
-	}
+    if (child_pid == 0)
+    {
+
+        if (execve(rgv[0], rgv, envp) == -1)
+        {
+            write(STDOUT_FILENO, argv[0], stringlen(argv[0]));
+            write(STDOUT_FILENO, ": No such file or directory",
+                  stringlen(": No such file or directory"));
+            write(STDOUT_FILENO, "\n", 1);
+            exit(EXIT_FAILURE);
+        }
+    }
+    else
+    {
+
+        waitpid(child_pid, &status, 0);
+    }
 }
 

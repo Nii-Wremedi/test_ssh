@@ -1,4 +1,5 @@
 #include "shell.h"
+
 /**
  * path_handler - handle the path function
  * @rgv: rgv argument
@@ -7,21 +8,25 @@
  */
 char *path_handler(char **rgv, char *cmad)
 {
-	char *path;
+    /* Check if the command is not an absolute or relative path */
+    if (cmad[0] != '/' && cmad[0] != '.')
+    {
+        /* Allocate memory for the path ("/bin/" + command) */
+        size_t path_len = stringlen("/bin/") + stringlen(cmad) + 1;
+        char *path = malloc(path_len);
+        if (!path)
+        {
+            return NULL; /* Return NULL if memory allocation fails */
+        }
 
-	path = malloc(stringlen("/bin/") + stringlen(cmad) + 1);
-	if (!path)
-	{
-		return (NULL);
-	}
-	stringcpy(path, "/bin/");
+        /* Construct the path using snprintf */
+        snprintf(path, path_len, "/bin/%s", cmad);
 
-	if (cmad[0] != '/' && cmad[0] != '.')
-	{
-		rgv[0] = _strconcat(path, cmad);
-		return (rgv[0]);
-	}
-	free(path);
-	return (cmad);
+        /* Update rgv[0] */
+        rgv[0] = path;
+        return path; /* Return the concatenated path */
+    }
+
+    return cmad; /* Return the original command if it's an absolute or relative path */
 }
 

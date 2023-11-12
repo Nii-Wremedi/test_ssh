@@ -14,6 +14,7 @@ void sig_handler(int num)
  * @envp: envirement variable argument
  * @flag: flag argument for mode
  */
+
 void _prompter(char **argv, char **envp, bool flag)
 {
         size_t a = 0;
@@ -50,4 +51,3 @@ void _prompter(char **argv, char **envp, bool flag)
         }
         free(cmd);
 }
-

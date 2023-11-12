@@ -1,22 +1,24 @@
 #include "shell.h"
+
 /**
- * _strncat - Concantenates two strings where n number
- * of bytes are copied from source.
- * @char_ptr1: Pointer to destination string.
- * @char_ptr2: Pointer to source string.
- * @n: n bytes to copy from src.
+ * _strncat - Concatenates two strings, copying up to n bytes from source.
+ * @dest: Pointer to destination string.
+ * @src: Pointer to source string.
+ * @n: Maximum number of bytes to copy from src.
  *
  * Return: Pointer to destination string.
  */
-char *_strncat(char *char_ptr1, const char *char_ptr2, size_t n)
+char *_strncat(char *dest, const char *src, size_t n)
 {
-	size_t dest_len = stringlen(char_ptr1);
-	size_t a;
+    char *dest_end = dest + stringlen(dest);
 
-	for (a = 0; a < n && char_ptr2[a] != '\0'; a++)
-		char_ptr1[dest_len + a] = char_ptr2[a];
-	char_ptr1[dest_len + a] = '\0';
+    while (*src != '\0' && n > 0)
+    {
+        *dest_end++ = *src++;
+        n--;
+    }
 
-	return (char_ptr1);
+    *dest_end = '\0';
+
+    return dest;
 }
-

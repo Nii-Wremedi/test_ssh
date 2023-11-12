@@ -25,7 +25,7 @@ int stringlen(char *s);
 void exit_handler(char *cmad);
 void runcommand(char **rgv, char **argv, char **envp);
 char *spacetrim(char *cmad);
-char *_strncpy(char *char_ptr1, char *char_ptr2, int n);
+char *_strncpy(char *dest, const char *src, int n);
 char *get_path(char *cmad);
 char *_getenv(char *name);
 char **tokenize_env(char *path);

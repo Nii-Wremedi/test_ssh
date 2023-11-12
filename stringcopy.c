@@ -1,23 +1,27 @@
 #include "shell.h"
-/**
- * _strncpy - copy n char
- * @char_ptr1: string argument
- * @char_ptr2: string argument for src
- * @n: integer argument
- * Return: dest
- */
-char *_strncpy(char *char_ptr1, char *char_ptr2, int n)
-{
-	int a;
 
-	for (a = 0; a < n && char_ptr2[a] != '\0'; a++)
-	{
-		char_ptr1[a] = char_ptr2[a];
-	}
-	for (; a < n; a++)
-	{
-		char_ptr1[a] = '\0';
-	}
-	return (char_ptr1);
+/**
+ * _strncpy - Copies at most n characters from src to dest
+ * @dest: Destination string
+ * @src: Source string
+ * @n: Maximum number of characters to copy
+ * Return: Pointer to the destination string
+ */
+char *_strncpy(char *dest, const char *src, int n)
+{
+    int i;
+
+    for (i = 0; i < n && src[i] != '\0'; i++)
+    {
+        dest[i] = src[i];
+    }
+
+    for (; i < n; i++)
+    {
+        dest[i] = '\0';
+    }
+
+    return dest;
 }
+
 
