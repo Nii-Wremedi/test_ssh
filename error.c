@@ -6,26 +6,18 @@
  */
 int intlen(int n)
 {
-	unsigned int number;
-	int leng = 1;
+    unsigned int number = (n < 0) ? -n : n;
+    int leng = 1;
 
-	if (n < 0)
-	{
-		leng++;
-		number = n * -1;
-	}
-	else
-	{
-		number = n;
-	}
-	while (number > 9)
-	{
-		leng++;
-		number = number / 10;
-	}
+    while (number > 9)
+    {
+        leng++;
+        number /= 10;
+    }
 
-	return (leng);
+    return (n < 0) ? leng + 1 : leng;
 }
+
 /**
  * _itoa - a func that .. later
  * @num: a passing param.
@@ -33,32 +25,36 @@ int intlen(int n)
  */
 char *_itoa(int num)
 {
-	char *buff;
-	size_t  a;
-	int leng = intlen(num);
+    int isNegative = (num < 0) ? 1 : 0;
+    int length = intlen(num);
 
-	buff = malloc(leng + 1);
-	if (!buff)
-	{
-		return (NULL);
-	}
-	buff[leng] = '\0';
-	if (num < 0)
-	{
-		a = num * -1;
-		*buff = '-';
-	}
-	else
-		a = num;
-	leng--;
+    char *buff = (char *)malloc(length + isNegative + 1);
+    if (!buff)
+    {
+        return NULL;
+    }
 
-	do {
-		*(buff + leng) = (a % 10) + '0';
-		a /= 10;
-		leng--;
-	} while (a > 0);
-		return (buff);
+    if (isNegative)
+    {
+        buff[0] = '-';
+        num *= -1;
+    }
+
+    {
+        int i;
+        for (i = length + isNegative - 1; i >= isNegative; i--)
+        {
+            buff[i] = '0' + (num % 10);
+            num /= 10;
+        }
+    }
+
+    buff[length + isNegative] = '\0';
+
+    return buff;
 }
+
+
 /**
  * geterror - a function that run command
  * @a: argument
@@ -68,24 +64,19 @@ char *_itoa(int num)
  */
 void error_handler(denum *n, char **argv, char *cmad)
 {
-	int leng;
-	char *errmsg, *cnt_str;
+    char *cnt_str = _itoa(n->cnt);
+    int length = stringlen(argv[0]) + stringlen(cmad) + stringlen(cnt_str) + 17;
 
-	cnt_str = _itoa(n->cnt);
-	leng = stringlen(argv[0]) + stringlen(cmad) + stringlen(cnt_str) + 17;
-	errmsg = malloc(leng);
-	if (!errmsg)
-	{
-		return;
-	}
-	stringcpy(errmsg, argv[0]);
-	_strconcat(errmsg, ": ");
-	_strconcat(errmsg, cnt_str);
-	_strconcat(errmsg, ": ");
-	_strconcat(errmsg, cmad);
-	_strconcat(errmsg, ": not found\n");
-	_strconcat(errmsg, "\0");
-	write(STDOUT_FILENO, errmsg, leng);
-	free(errmsg);
+    char *errmsg = malloc(length);
+    if (!errmsg)
+    {
+        return;
+    }
+
+    snprintf(errmsg, length, "%s: %d: %s: %s: not found\n", argv[0], n->cnt, cmad, cnt_str);
+
+    write(STDOUT_FILENO, errmsg, length - 1); /*Exclude the null terminator*/
+    free(errmsg);
 }
+
 

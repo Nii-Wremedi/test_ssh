@@ -1,23 +1,17 @@
 #include "shell.h"
 /**
  * stringcpy - copy a string
- * @char_ptr1: char_ptr1 string argc
- * @char_ptr2: source argc
- * Return: string value
+ * @char_ptr1: destination string
+ * @char_ptr2: source string
+ * Return: pointer to the destination string
  */
-char *stringcpy(char *char_ptr1, char *char_ptr2)
+char *stringcpy(char *char_ptr1, const char *char_ptr2)
 {
-	int a, leng= 0;
+    char *dest = char_ptr1; /*Save the start of the destination string*/
 
-	while (char_ptr2[leng] != '\0')
-	{
-		leng++;
-	}
-	for (a = 0; a < leng; a++)
-	{
-		char_ptr1[a] = char_ptr2[a];
-	}
-	char_ptr1[a] = '\0';
-	return (char_ptr2);
+    while ((*char_ptr1++ = *char_ptr2++)) /*Copy characters until null terminator*/
+        ;
+
+    return dest; /*Return the start of the destination string*/
 }
 
